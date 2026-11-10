@@ -4,8 +4,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,7 +46,10 @@ public class MiniGUI {
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
+        //exercise part 2
+        final JTextField result = new JTextField("Result");
+        canvas.add(result, BorderLayout.NORTH);
+
         /*
          * Handlers
          */
