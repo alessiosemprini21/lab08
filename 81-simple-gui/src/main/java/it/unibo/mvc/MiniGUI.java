@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +26,7 @@ public class MiniGUI {
     private static final int PROPORTION = 5;
     private final Random randomGenerator = new Random();
     private final JFrame frame = new JFrame(TITLE);
+    private final JTextField result = new JTextField("Result");
 
     /**
      * Creates a new {@link MiniGUI}.
@@ -35,30 +35,35 @@ public class MiniGUI {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
 
-        //exercise part 1
         final JPanel newPanel = new JPanel();
         newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.LINE_AXIS));
-        frame.setContentPane(newPanel);
         canvas.add(newPanel);
 
         final JButton write = new JButton("Print a random number on standard output");
-        newPanel.add(write, BorderLayout.CENTER);
+        newPanel.add(write);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        //exercise part 2
-        final JTextField result = new JTextField("Result");
         canvas.add(result, BorderLayout.NORTH);
 
         /*
          * Handlers
          */
-        write.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                IO.println(randomGenerator.nextInt());
-            }
-        });
+        write.addActionListener(new RandomNumber());
+    }
+    
+    /**
+     * Generates a random integer and display the same value in the console
+     * and also in the text field of the GUI
+     * 
+     */
+    private class RandomNumber implements ActionListener {
+        @Override
+        public void actionPerformed(final ActionEvent e) {
+            final int randomNumber = randomGenerator.nextInt();
+            IO.println(randomNumber);
+            result.setText(String.valueOf(randomNumber));
+        }
     }
 
     private void display() {
