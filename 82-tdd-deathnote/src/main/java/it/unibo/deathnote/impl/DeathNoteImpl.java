@@ -44,7 +44,7 @@ public class DeathNoteImpl implements DeathNote {
 
     @Override 
     public void writeName(final String name) {
-        if (name == null) {
+        if (name == null || name.equals("")) {
             throw new NullPointerException();
         }
         this.deathNoteNames.put(name, new DeathNoteValue());
@@ -71,6 +71,9 @@ public class DeathNoteImpl implements DeathNote {
             throw new IllegalStateException();
         }
         final DeathNoteValue mapEntry = deathNoteNames.get(currentName);
+        if (mapEntry.timeCauseAccepted == null) {
+            mapEntry.timeCauseAccepted = mapEntry.timeNameWritten;
+        }
         if (System.currentTimeMillis() - mapEntry.timeCauseAccepted <= 6040) {
             mapEntry.deathDetails = details;
             return true;
