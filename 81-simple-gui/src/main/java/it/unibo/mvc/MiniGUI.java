@@ -62,7 +62,7 @@ public class MiniGUI {
         public void actionPerformed(final ActionEvent e) {
             final int randomNumber = randomGenerator.nextInt();
             IO.println(randomNumber);
-            result.setText(String.valueOf(randomNumber));
+            result.setText(String.valueOf("Result: " + randomNumber));
         }
     }
 
