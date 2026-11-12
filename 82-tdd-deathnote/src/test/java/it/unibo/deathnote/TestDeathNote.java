@@ -37,14 +37,21 @@ class TestDeathNote {
                 deathNote.getRule(-1);
             }
         });
-        assertNotNull(negativeRule);
-        assertNotNull(rule0);
+        IllegalArgumentException notExistingRule = assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override 
+            public void execute() {
+                deathNote.getRule(DeathNote.RULES.size() + 1);
+            }
+        });
+        rule0.getMessage();
+        negativeRule.getMessage();
+        notExistingRule.getMessage();
     }
 
     @Test 
     void testEmptyRules() {
         //checking that no rule is empty or null in the DeathNote rules
-        for (int i = 1; i <= deathNote.RULES.size(); i++) {
+        for (int i = 1; i <= DeathNote.RULES.size(); i++) {
             String rule = deathNote.getRule(i);
             assertNotNull(rule);
             assertFalse(rule.isBlank());

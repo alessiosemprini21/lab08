@@ -45,7 +45,7 @@ public class DeathNoteImpl implements DeathNote {
     @Override 
     public void writeName(final String name) {
         if (name == null || name.equals("")) {
-            throw new NullPointerException();
+            throw new NullPointerException("Invalid name provided");
         }
         this.deathNoteNames.put(name, new DeathNoteValue());
         this.currentName = name;
@@ -54,7 +54,7 @@ public class DeathNoteImpl implements DeathNote {
     @Override 
     public boolean writeDeathCause(final String cause) {
         if (currentName == null || cause == null) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Invalid cause provided");
         }
         DeathNoteValue mapEntry = deathNoteNames.get(currentName);
         if ((System.currentTimeMillis() - mapEntry.timeNameWritten) <= 40) {
@@ -68,7 +68,7 @@ public class DeathNoteImpl implements DeathNote {
     @Override 
     public boolean writeDetails(final String details) {
         if (currentName == null || details == null) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Invalid details provided");
         }
         final DeathNoteValue mapEntry = deathNoteNames.get(currentName);
         if (mapEntry.timeCauseAccepted == null) {
@@ -84,7 +84,7 @@ public class DeathNoteImpl implements DeathNote {
     @Override 
     public String getDeathCause(final String name) {
         if (!deathNoteNames.containsKey(name)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid name provided");
         }
         if (deathNoteNames.get(name).deathCause == null) {
             return "heart attack";
@@ -95,7 +95,7 @@ public class DeathNoteImpl implements DeathNote {
     @Override 
     public String getDeathDetails(final String name) {
         if (!deathNoteNames.containsKey(name)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid name provided");
         }
         if (deathNoteNames.get(name).deathDetails == null) {
             return "";
